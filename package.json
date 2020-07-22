@@ -1,0 +1,31 @@
+{
+  "name": "trivia",
+  "version": "1.0.0",
+  "description": "User-contributed Trivia question management system",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build-ts",
+    "build-ts": "tsc",
+    "serve": "node dist/server.js",
+    "build-serve": "npm run build && npm run serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fluffy-servers/trivia.git"
+  },
+  "author": "Robert A Fraser",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fluffy-servers/trivia/issues"
+  },
+  "homepage": "https://github.com/fluffy-servers/trivia#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^6.3.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.7"
+  }
+}
