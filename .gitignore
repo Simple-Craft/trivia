@@ -3,5 +3,8 @@
 node_modules/
 package-lock.json
 
+# Development database
+development.sqlite
+
 # Compiled typescript
 dist/
