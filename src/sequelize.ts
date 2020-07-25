@@ -3,8 +3,10 @@ import models from "./models"
 
 // Todo: Connect to actual database from .env
 export const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    database: 'development',
-    storage: 'development.sqlite',
+    dialect: 'mysql',
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE,
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
     models: models
 })
