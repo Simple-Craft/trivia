@@ -1,5 +1,5 @@
 import "dotenv/config"
-import { app } from "./app"
+import app from "./app"
 import "./sequelize"
 
 export const server = app.listen(process.env.PORT, () => {

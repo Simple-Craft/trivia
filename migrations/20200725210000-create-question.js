@@ -21,6 +21,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Categories', key: 'id' }
       },
+      submitterId: {
+        type: Sequelize.INTEGER,
+        references: { model: 'Users', key: 'id' }
+      },
       approvalState: {
         type: Sequelize.TINYINT
       },
@@ -28,7 +32,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updateAt: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
       },

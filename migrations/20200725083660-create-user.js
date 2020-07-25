@@ -2,9 +2,15 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Users', {
-      discordId: {
+      id: {
         primaryKey: true,
         allowNull: false,
+        autoIncrement: true,
+        type: Sequelize.INTEGER
+      },
+      discordId: {
+        allowNull: false,
+        unique: true,
         type: Sequelize.STRING(64)
       },
       username: {

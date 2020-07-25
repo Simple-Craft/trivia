@@ -10,7 +10,7 @@ const PORT = process.env.PORT
 
 let redirect = `http://localhost:${PORT}/user/callback`
 if (process.env.ENVIRONMENT === 'production') {
-    redirect = `http://localhost:${PORT}/user/callback`
+    redirect = `http://139.180.168.161:${PORT}/user/callback`
 }
 
 async function getDiscordUserData(token: string) {

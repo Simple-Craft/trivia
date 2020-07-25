@@ -1,5 +1,6 @@
-import { Model, Column, Table, PrimaryKey, CreatedAt, AutoIncrement, BelongsTo, ForeignKey } from "sequelize-typescript";
+import { Model, Column, Table, PrimaryKey, CreatedAt, AutoIncrement, BelongsTo, ForeignKey, HasMany } from "sequelize-typescript";
 import CategoryGroup from "./CategoryGroup.model";
+import Question from "./Question.model"
 
 @Table({ updatedAt: false })
 export default class Category extends Model<Category> {
@@ -17,6 +18,9 @@ export default class Category extends Model<Category> {
 
     @BelongsTo(() => CategoryGroup)
     categoryGroup: CategoryGroup;
+
+    @HasMany(() => Question)
+    questions: Question[];
 
     @CreatedAt
     createdAt: Date;

@@ -26,35 +26,6 @@ if (process.env.ENVIRONMENT === 'production') {
 }
 */
 
-interface ResponseError extends Error {
-    status?: number;
-}
-
-// Middleware that can be used for authentication in other routes
-function requireLogin(req: express.Request, res: express.Response, next: express.NextFunction) {
-    if (!req.session.user) {
-        let err = new Error('Unauthorized') as ResponseError
-        err.status = 401
-        throw err
-    }
-    next()
-}
-
-function requireAdmin(req: express.Request, res: express.Response, next: express.NextFunction) {
-    if (!req.session.user) {
-        let err = new Error() as ResponseError
-        err.status = 404
-        throw err
-    }
-
-    if (!req.session.user.admin) {
-        let err = new Error() as ResponseError
-        err.status = 404
-        throw err
-    }
-    next()
-}
-
 const app = express()
 app.use(session(sess))
 
@@ -63,4 +34,4 @@ app.use('/user', userRoutes)
 app.use('/admin', adminRoutes)
 app.use('/api', apiRoutes)
 
-export { app, requireLogin, requireAdmin }
+export default app

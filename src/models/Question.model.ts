@@ -1,5 +1,6 @@
-import { Model, Column, Table, PrimaryKey, CreatedAt, UpdatedAt, AutoIncrement, Default, DataType, BelongsTo } from "sequelize-typescript";
+import { Model, Column, Table, PrimaryKey, CreatedAt, UpdatedAt, AutoIncrement, Default, DataType, BelongsTo, ForeignKey } from "sequelize-typescript";
 import Category from "./Category.model"
+import User from "./User.model";
 
 export enum ApprovalState {
     Pending,
@@ -13,6 +14,13 @@ export default class Question extends Model<Question> {
     @PrimaryKey
     @Column
     id: number;
+
+    @ForeignKey(() => User)
+    @Column
+    submitterId: number;
+
+    @BelongsTo(() => User)
+    submitter: User;
 
     @Column(DataType.TEXT)
     question: string;
@@ -33,12 +41,16 @@ export default class Question extends Model<Question> {
         this.setDataValue('wrongAnswers', json)
     }
 
+    @ForeignKey(() => Category)
+    @Column
+    categoryId: number;
+
     @BelongsTo(() => Category)
     category: Category;
 
     @Default(false)
     @Column(DataType.TINYINT)
-    approvalState: number;
+    approvalState: ApprovalState;
 
     @CreatedAt
     createdAt: Date;
