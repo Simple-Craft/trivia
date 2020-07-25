@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize-typescript"
 import models from "./models"
 
 // Todo: Connect to actual database from .env
-export const sequelize = new Sequelize({
+export default new Sequelize({
     dialect: 'mysql',
     host: process.env.DB_HOST,
     database: process.env.DB_DATABASE,
