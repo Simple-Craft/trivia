@@ -1,4 +1,4 @@
-import { Model, Column, Table, PrimaryKey, CreatedAt, UpdatedAt } from "sequelize-typescript";
+import { Model, Column, Table, PrimaryKey, CreatedAt, UpdatedAt, Default } from "sequelize-typescript";
 
 @Table
 export default class User extends Model<User> {
@@ -9,6 +9,7 @@ export default class User extends Model<User> {
     @Column
     username: string;
 
+    @Default(false)
     @Column
     admin: boolean;
 
