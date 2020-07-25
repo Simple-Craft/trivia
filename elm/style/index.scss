@@ -39,27 +39,53 @@ body {
         display: inline-block;
     }
 
-    .button {
-        float: left;
-        height: $header-height - 16px;
-        line-height: $header-height - 32px;
-
-        margin: 8px;
-        padding: 8px 16px;
-        border-radius: 8px;
-
-        background-color: $secondary-color;
-        color: white;
-        text-align: center;
-        text-decoration: none;
-        
-        font-weight: bold;
-        cursor: pointer;
-
-        box-shadow: $shadow-1;
-    }
-
     .header-right {
         float: right
+    }
+}
+
+.button {
+    float: left;
+    height: $header-height - 16px;
+    line-height: $header-height - 32px;
+
+    margin: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+
+    background-color: $secondary-color;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    
+    font-weight: bold;
+
+    box-shadow: $shadow-1;
+}
+
+.button.clickable {
+    cursor: pointer;
+}
+
+.button-group {
+    display: block;
+    margin: 0 auto;
+}
+
+.content {
+    width: 60%;
+    margin: 0 auto;
+    margin-top: $header-height;
+}
+
+.centered {
+    img {
+        width: 100%;
+    }
+
+    p {
+        text-align: center;
+        font-size: 1.5em;
+        font-family: $font-stack-body;
     }
 }

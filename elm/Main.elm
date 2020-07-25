@@ -1,10 +1,12 @@
 module Main exposing (init, subscriptions)
 
+import Api
 import Browser
 import Browser.Navigation as Nav
 import Html exposing (..)
 import Model exposing (Model)
-import Update exposing (Msg(..), update)
+import Msg exposing (Msg(..))
+import Update exposing (update)
 import Url
 import View exposing (view)
 
@@ -31,12 +33,11 @@ init flags url key =
         model =
             { url = url
             , key = key
+            , user = Nothing
+            , tablePage = 0
             }
-
-        _ =
-            Debug.log "Initialized!" model
     in
-    ( model, Cmd.none )
+    ( model, Api.getUserData )
 
 
 subscriptions : Model -> Sub Msg

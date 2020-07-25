@@ -73,13 +73,9 @@ router.get('/callback', async (req, res) => {
 
 router.get('/me', (req, res) => {
     if (req.session.user) {
-        res.setHeader('Content-Type', 'text/html')
-        res.write('<p>Username: ' + req.session.user.username + '</p>')
-        res.write('<p>ID: ' + req.session.user.discordId + '</p>')
-        res.write('<p>Admin: ' + req.session.user.admin + '</p>')
-        res.end()
+        res.json(req.session.user)
     } else {
-        res.end('Not logged in.')
+        res.status(401)
     }
 })
 

@@ -1,14 +1,11 @@
-module Update exposing (Msg(..), update)
+module Update exposing (update)
 
+import Api
 import Browser
 import Browser.Navigation as Nav
 import Model exposing (Model)
+import Msg exposing (Msg(..))
 import Url
-
-
-type Msg
-    = UrlRequested Browser.UrlRequest
-    | UrlChanged Url.Url
 
 
 internalRedirections : List String
@@ -40,3 +37,6 @@ update msg model =
             ( { model | url = url }
             , Cmd.none
             )
+
+        LoadedUserData result ->
+            Api.handleGetUserData model result

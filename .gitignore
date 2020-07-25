@@ -5,8 +5,8 @@ package-lock.json
 
 # Elm
 elm-stuff/
-resources/*
-!resources/index.html
+resources/style/
+resources/elm.js
 
 # Compiled typescript
 dist/
