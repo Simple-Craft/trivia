@@ -2,8 +2,11 @@ module View exposing (view)
 
 import Html exposing (..)
 import Html.Attributes exposing (class, href, id, src)
-import Model exposing (Model)
+import Model exposing (Model, Page(..))
 import Msg exposing (Msg(..))
+import Page.Create as Create
+import Page.List as List
+import Page.Queue as Queue
 
 
 viewButtons : Model -> List (Html msg)
@@ -37,13 +40,24 @@ viewHeader model =
         ]
 
 
-viewBody : Model -> Html msg
+viewBody : Model -> List (Html msg)
 viewBody model =
-    viewIntroduction
+    case model.page of
+        Index ->
+            [ viewIndex ]
+
+        Queue m ->
+            Queue.view m
+
+        Create m ->
+            Create.view m
+
+        List m ->
+            List.view m
 
 
-viewIntroduction : Html msg
-viewIntroduction =
+viewIndex : Html msg
+viewIndex =
     div [ class "centered" ]
         [ img [ src "img/logo.png" ] []
         , p [] [ text "User-contributed Trivia Database for the modern world." ]
@@ -53,5 +67,5 @@ viewIntroduction =
 view : Model -> List (Html msg)
 view model =
     [ viewHeader model
-    , div [ class "content" ] [ viewIntroduction ]
+    , div [ class "content" ] (viewBody model)
     ]

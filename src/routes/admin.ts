@@ -1,8 +1,9 @@
 import express from "express"
 import { requireAdmin } from "../middleware"
+import path from "path"
+
 import Question from "../models/Question.model"
 import { ApprovalState } from "../models/Question.model"
-
 import User from "../models/User.model"
 import Category from "../models/Category.model"
 
@@ -40,6 +41,11 @@ router.get('/queue/:page', async (req, res) => {
         page_count: page_count,
         questions: questions.map(mapQuestion)
     })
+})
+
+// Internal routing handled by Elm
+router.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../../resources/index.html'))
 })
 
 export default router

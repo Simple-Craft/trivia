@@ -3,10 +3,14 @@ import session from "express-session"
 
 import userRoutes from "./routes/user"
 import adminRoutes from "./routes/admin"
+import createRoutes from "./routes/create"
+import listRoutes from "./routes/questions"
+
 import apiRoutes from "./routes/api"
 
 import SequelizeStore from "connect-session-sequelize"
 import sequelize from "./sequelize"
+import Question from "./models/Question.model"
 
 // Configure session
 let SequelizeSessionStore = SequelizeStore(session.Store)
@@ -36,5 +40,7 @@ app.use(express.static('resources'))
 app.use('/user', userRoutes)
 app.use('/admin', adminRoutes)
 app.use('/api', apiRoutes)
+app.use('/create', createRoutes)
+app.use('/questions', listRoutes)
 
 export default app

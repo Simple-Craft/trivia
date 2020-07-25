@@ -1,12 +1,11 @@
 module Main exposing (init, subscriptions)
 
-import Api
 import Browser
 import Browser.Navigation as Nav
 import Html exposing (..)
-import Model exposing (Model)
+import Model exposing (Model, Page(..))
 import Msg exposing (Msg(..))
-import Update exposing (update)
+import Update exposing (getUserData, router, update)
 import Url
 import View exposing (view)
 
@@ -30,14 +29,14 @@ main =
 init : Flags -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url key =
     let
-        model =
-            { url = url
-            , key = key
-            , user = Nothing
-            , tablePage = 0
-            }
+        ( model, cmd ) =
+            router url
+                { key = key
+                , user = Nothing
+                , page = Index
+                }
     in
-    ( model, Api.getUserData )
+    ( model, Cmd.batch [ cmd, getUserData ] )
 
 
 subscriptions : Model -> Sub Msg

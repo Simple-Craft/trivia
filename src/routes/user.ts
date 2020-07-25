@@ -30,6 +30,7 @@ router.get('/login', (req, res) => {
 
 router.get('/logout', (req, res) => {
     req.session.destroy(console.error)
+    res.redirect('/')
 })
 
 router.get('/callback', async (req, res) => {
@@ -67,7 +68,7 @@ router.get('/callback', async (req, res) => {
     // Finish login, redirect to user page
     req.session.user = user
     req.session.save(_ => {
-        res.redirect('/user/me')
+        res.redirect('/')
     })
 })
 
