@@ -1,7 +1,9 @@
 import express from "express"
 import session from "express-session"
 
-import discordRoutes from "./api/discord"
+import userRoutes from "./routes/user"
+import adminRoutes from "./routes/admin"
+import apiRoutes from "./routes/api"
 
 const app = express()
 
@@ -12,7 +14,9 @@ const sess = {
 }
 app.use(session(sess))
 
-// API
-app.use('/api/discord', discordRoutes)
+// Routing
+app.use('/user', userRoutes)
+app.use('/admin', adminRoutes)
+app.use('/api', apiRoutes)
 
 export { app }

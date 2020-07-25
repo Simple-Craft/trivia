@@ -1,22 +1,15 @@
 import express from "express"
 import fetch from "node-fetch"
+import User from "../models/User.model"
 
 const router = express.Router()
 
 const CLIENT_ID = process.env.DISCORD_CLIENT_ID
 const CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET
 const PORT = process.env.PORT
-const redirect = `http://localhost:${PORT}/api/discord/callback`
+const redirect = `http://localhost:${PORT}/user/callback`
 
-function tokenUrl(code) {
-    return `https://discord.com/api/oauth2/token?grant_type=authorization_code&code=${code}&redirect_uri=${redirect}`
-}
-
-function userDataUrl() {
-    return
-}
-
-function getUserData(token) {
+function getDiscordUserData(token: string) {
     return new Promise((resolve, reject) => {
         fetch(`https://discord.com/api/users/@me`, {
             method: 'GET',
@@ -44,8 +37,6 @@ router.get('/callback', (req, res) => {
     const code = req.query.code
     const auth = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')
 
-    console.log(redirect)
-
     let data = new URLSearchParams()
     data.append('client_id', CLIENT_ID)
     data.append('client_secret', CLIENT_SECRET)
@@ -61,20 +52,29 @@ router.get('/callback', (req, res) => {
         .then(res => res.json())
         .then(json => {
             let token = json.access_token
-            getUserData(token).then((user: any) => {
-                req.session.loggedIn = true
-                req.session.discordUsername = user.username + '#' + user.discriminator
-                req.session.discordId = user.id
-                res.redirect('/api/discord/test')
+            console.log(json, token)
+            getDiscordUserData(token).then((data: any) => {
+                let username = data.username + '#' + data.discriminator
+                User.findOrCreate({
+                    where: { discordId: data.id },
+                    defaults: { username: username }
+                }).then(([user, created]) => {
+                    user.lastLogin = new Date()
+                    user.save()
+
+                    req.session.user = user
+                    res.redirect('/user/me')
+                })
             })
         })
 })
 
-router.get('/test', (req, res) => {
-    if (req.session.loggedIn) {
+router.get('/me', (req, res) => {
+    if (req.session.user) {
         res.setHeader('Content-Type', 'text/html')
-        res.write('<p>Username: ' + req.session.discordUsername + '</p>')
-        res.write('<p>ID: ' + req.session.discordId + '</p>')
+        res.write('<p>Username: ' + req.session.user.username + '</p>')
+        res.write('<p>ID: ' + req.session.user.discordId + '</p>')
+        res.write('<p>Admin: ' + req.session.user.admin + '</p>')
         res.end()
     } else {
         res.end('Not logged in.')
