@@ -1,4 +1,4 @@
-import { Model, Column, Table, PrimaryKey, CreatedAt, UpdatedAt, AutoIncrement, BelongsTo, BelongsToMany, ForeignKey } from "sequelize-typescript";
+import { Model, Column, Table, PrimaryKey, CreatedAt, AutoIncrement, BelongsTo, ForeignKey } from "sequelize-typescript";
 import CategoryGroup from "./CategoryGroup.model";
 
 @Table({ updatedAt: false })
