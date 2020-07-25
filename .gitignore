@@ -3,5 +3,10 @@
 node_modules/
 package-lock.json
 
+# Elm
+elm-stuff/
+resources/*
+!resources/index.html
+
 # Compiled typescript
 dist/

@@ -4,8 +4,10 @@
   "description": "User-contributed Trivia question management system",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build-ts",
+    "build": "npm run build-ts && npm run build-elm && npm run build-sass",
     "build-ts": "tsc",
+    "build-sass": "sass elm/style/index.scss resources/style/index.css",
+    "build-elm": "elm make elm/Main.elm --output=resources/elm.js",
     "serve": "node dist/server.js",
     "build-serve": "npm run build && npm run serve",
     "migrate": "npx sequelize-cli db:migrate"

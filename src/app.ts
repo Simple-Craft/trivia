@@ -29,6 +29,9 @@ if (process.env.ENVIRONMENT === 'production') {
 const app = express()
 app.use(session(sess))
 
+// Static files
+app.use(express.static('resources'))
+
 // Routing
 app.use('/user', userRoutes)
 app.use('/admin', adminRoutes)

@@ -1,0 +1,65 @@
+$primary-color: #00a8ff;
+$secondary-color: #0097e6;
+$offwhite-color: #dcdde1;
+
+$font-stack-body: sans-serif;
+$font-stack-header: sans-serif;
+
+$header-height: 64px;
+
+$shadow-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+$shadow-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+$shadow-3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: $offwhite-color;
+}
+
+.header {
+    margin: 0;
+    width: 100%;
+    height: $header-height;
+
+    background-color: $primary-color;
+    box-shadow: $shadow-1;
+    font-family: $font-stack-header;
+    color: white;
+    overflow: hidden;
+
+    h1 {
+        margin: 0;
+        margin-left: 16px;
+        line-height: $header-height;
+        display: inline-block;
+    }
+
+    .button {
+        float: left;
+        height: $header-height - 16px;
+        line-height: $header-height - 32px;
+
+        margin: 8px;
+        padding: 8px 16px;
+        border-radius: 8px;
+
+        background-color: $secondary-color;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        
+        font-weight: bold;
+        cursor: pointer;
+
+        box-shadow: $shadow-1;
+    }
+
+    .header-right {
+        float: right
+    }
+}
