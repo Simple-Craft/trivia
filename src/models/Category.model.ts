@@ -1,7 +1,7 @@
 import { Model, Column, Table, PrimaryKey, CreatedAt, UpdatedAt, AutoIncrement, BelongsTo, BelongsToMany, ForeignKey } from "sequelize-typescript";
 import CategoryGroup from "./CategoryGroup.model";
 
-@Table
+@Table({ updatedAt: false })
 export default class Category extends Model<Category> {
     @AutoIncrement
     @PrimaryKey
