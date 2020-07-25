@@ -9,18 +9,14 @@ const CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET
 const PORT = process.env.PORT
 const redirect = `http://localhost:${PORT}/user/callback`
 
-function getDiscordUserData(token: string) {
-    return new Promise((resolve, reject) => {
-        fetch(`https://discord.com/api/users/@me`, {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-            .then(res => res.json())
-            .then(json => resolve(json))
-            .catch(e => reject(e))
+async function getDiscordUserData(token: string) {
+    const res = await fetch(`https://discord.com/api/users/@me`, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
     })
+    return await res.json()
 }
 
 router.get('/login', (req, res) => {
@@ -29,10 +25,10 @@ router.get('/login', (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
-    req.session.destroy(err => console.error)
+    req.session.destroy(console.error)
 })
 
-router.get('/callback', (req, res) => {
+router.get('/callback', async (req, res) => {
     if (!req.query.code) throw new Error()
     const code = req.query.code
     const auth = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')
@@ -45,28 +41,24 @@ router.get('/callback', (req, res) => {
     data.append('scope', 'identify')
     data.append('redirect_uri', redirect)
 
-    fetch(`https://discordapp.com/api/oauth2/token`, {
+    let response = await fetch(`https://discordapp.com/api/oauth2/token`, {
         body: data,
         method: 'POST'
     })
-        .then(res => res.json())
-        .then(json => {
-            let token = json.access_token
-            console.log(json, token)
-            getDiscordUserData(token).then((data: any) => {
-                let username = data.username + '#' + data.discriminator
-                User.findOrCreate({
-                    where: { discordId: data.id },
-                    defaults: { username: username }
-                }).then(([user, created]) => {
-                    user.lastLogin = new Date()
-                    user.save()
 
-                    req.session.user = user
-                    res.redirect('/user/me')
-                })
-            })
-        })
+    const json = await response.json()
+    const userdata = await getDiscordUserData(json.access_token) as any
+
+    let username = userdata.username + '#' + userdata.discriminator
+    let [user, created] = await User.findOrCreate({
+        where: { discordId: userdata.id },
+        defaults: { username: username }
+    })
+
+    user.lastLogin = new Date()
+    user.save()
+    req.session.user = user
+    res.redirect('/user/me')
 })
 
 router.get('/me', (req, res) => {
