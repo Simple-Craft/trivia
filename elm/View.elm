@@ -1,7 +1,7 @@
 module View exposing (view)
 
-import Html exposing (..)
-import Html.Attributes exposing (class, href, id, src)
+import Html exposing (Html, a, div, h1, img, p, text)
+import Html.Attributes exposing (class, href, src)
 import Model exposing (Model, Page(..))
 import Msg exposing (Msg(..))
 import Page.Create as Create
@@ -15,12 +15,11 @@ viewButtons model =
         Just user ->
             let
                 queueButton =
-                    case user.admin of
-                        True ->
-                            a [ class "button clickable", href "/admin" ] [ text "Queue" ]
+                    if user.admin then
+                        a [ class "button clickable", href "/admin" ] [ text "Queue" ]
 
-                        False ->
-                            Html.text ""
+                    else
+                        Html.text ""
             in
             [ queueButton
             , a [ class "button clickable", href "/create" ] [ text "Create" ]

@@ -2,10 +2,9 @@ module Update exposing (getUserData, router, update)
 
 import Browser
 import Browser.Navigation as Nav
-import Html.Attributes exposing (class)
 import Http
 import HttpBuilder
-import Model exposing (Model, Page(..), User, decodeUser)
+import Model exposing (Model, Page(..), decodeUser)
 import Msg exposing (Msg(..))
 import Page.Create as Create
 import Page.List as List

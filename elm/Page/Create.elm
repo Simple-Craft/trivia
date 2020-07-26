@@ -1,4 +1,4 @@
-module Page.Create exposing (Model, Msg, init, update, view)
+module Page.Create exposing (Model, Msg(..), init, update, view)
 
 import Html
 
@@ -19,10 +19,10 @@ init =
 update : Msg -> Model -> ( Model, Cmd msg )
 update msg model =
     case msg of
-        _ ->
+        NoOp ->
             ( model, Cmd.none )
 
 
 view : Model -> List (Html.Html msg)
-view model =
+view _ =
     [ Html.text "Create" ]

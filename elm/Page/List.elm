@@ -1,4 +1,4 @@
-module Page.List exposing (Model, Msg, init, update, view)
+module Page.List exposing (Model, Msg(..), init, update, view)
 
 import Html
 
@@ -24,5 +24,5 @@ update msg model =
 
 
 view : Model -> List (Html.Html msg)
-view model =
+view _ =
     [ Html.text "List" ]

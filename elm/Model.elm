@@ -6,7 +6,6 @@ import Json.Decode.Pipeline exposing (required)
 import Page.Create as Create
 import Page.List as List
 import Page.Queue as Queue
-import Url
 
 
 type alias Model =

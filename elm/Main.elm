@@ -1,8 +1,7 @@
-module Main exposing (init, subscriptions)
+module Main exposing (init, main, subscriptions)
 
 import Browser
 import Browser.Navigation as Nav
-import Html exposing (..)
 import Model exposing (Model, Page(..))
 import Msg exposing (Msg(..))
 import Update exposing (getUserData, router, update)
@@ -27,7 +26,7 @@ main =
 
 
 init : Flags -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
-init flags url key =
+init _ url key =
     let
         ( model, cmd ) =
             router url
@@ -40,7 +39,7 @@ init flags url key =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions model =
+subscriptions _ =
     Sub.none
 
 
