@@ -25,6 +25,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Users', key: 'id' }
       },
+      difficulty: {
+        type: Sequelize.SMALLINT,
+      },
       approvalState: {
         type: Sequelize.TINYINT
       },

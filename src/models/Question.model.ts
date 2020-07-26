@@ -8,6 +8,13 @@ export enum ApprovalState {
     Rejected
 }
 
+export enum Difficulty {
+    Easy,
+    Medium,
+    Hard,
+    Impossible
+}
+
 @Table
 export default class Question extends Model<Question> {
     @AutoIncrement
@@ -47,6 +54,10 @@ export default class Question extends Model<Question> {
 
     @BelongsTo(() => Category)
     category: Category;
+
+    @Default(Difficulty.Medium)
+    @Column(DataType.SMALLINT)
+    difficulty: Difficulty;
 
     @Default(false)
     @Column(DataType.TINYINT)
