@@ -15,6 +15,15 @@ export enum Difficulty {
     Impossible
 }
 
+export function stringToDifficulty(str: string) {
+    let str_lower = str.toLowerCase()
+    if (str_lower == "easy") return Difficulty.Easy
+    else if (str_lower == "medium") return Difficulty.Medium
+    else if (str_lower == "hard") return Difficulty.Hard
+    else if (str_lower == "impossible") return Difficulty.Impossible
+    else throw Error("Invalid difficulty string")
+}
+
 @Table
 export default class Question extends Model<Question> {
     @AutoIncrement

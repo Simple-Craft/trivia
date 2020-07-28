@@ -39,20 +39,20 @@ viewHeader model =
         ]
 
 
-viewBody : Model -> List (Html msg)
+viewBody : Model -> Html Msg
 viewBody model =
     case model.page of
         Index ->
-            [ viewIndex ]
+            viewIndex
 
         Queue m ->
-            Queue.view m
+            Html.map Msg.QueueMsg <| Queue.view m
 
         Create m ->
-            Create.view m
+            Html.map Msg.CreateMsg <| Create.view m
 
-        List m ->
-            List.view m
+        _ ->
+            viewIndex
 
 
 viewIndex : Html msg
@@ -63,8 +63,8 @@ viewIndex =
         ]
 
 
-view : Model -> List (Html msg)
+view : Model -> List (Html Msg)
 view model =
     [ viewHeader model
-    , div [ class "content" ] (viewBody model)
+    , div [ class "content" ] [ viewBody model ]
     ]
