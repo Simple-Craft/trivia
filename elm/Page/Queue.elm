@@ -1,7 +1,7 @@
 module Page.Queue exposing (Model, Msg(..), init, update, view)
 
 import Array exposing (Array)
-import Html exposing (input, table, td, text, th, thead, tr)
+import Html exposing (input, table, td, text, textarea, th, thead, tr)
 import Html.Attributes exposing (type_, value)
 import Html.Events exposing (stopPropagationOn, targetValue)
 import Http
@@ -188,7 +188,7 @@ viewRow : Int -> Question -> Html.Html Msg
 viewRow idx question =
     tr []
         [ td [] [ text (String.fromInt question.id) ]
-        , td [] [ viewInput idx QuestionText question.question ]
+        , td [] [ viewTextarea idx QuestionText question.question ]
         , td [] [ text question.category ]
         , td [] [ text question.difficulty ]
         , td [] [ viewInput idx CorrectAnswer question.correctAnswer ]
@@ -210,6 +210,11 @@ viewWrongAnswer idx wrongIndex text =
     [ viewInput idx (WrongAnswer wrongIndex) text
     , Html.br [] []
     ]
+
+
+viewTextarea : Int -> QuestionProperty -> String -> Html.Html Msg
+viewTextarea idx property v =
+    textarea [ value v, onChange (UpdateQuestion idx property) ] []
 
 
 viewInput : Int -> QuestionProperty -> String -> Html.Html Msg
