@@ -23,6 +23,7 @@ viewButtons model =
             in
             [ queueButton
             , a [ class "button clickable", href "/create" ] [ text "Create" ]
+            , a [ class "button clickable", href "/list" ] [ text "List" ]
             , p [ class "button" ] [ text user.username ]
             ]
 
